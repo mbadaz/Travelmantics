@@ -4,4 +4,5 @@
     <string name="price_hint">Deal price</string>
     <string name="deal_description">Deal description</string>
     <string name="menu_title_save">Save</string>
+    <string name="saved_toast">Deal saved</string>
 </resources>
