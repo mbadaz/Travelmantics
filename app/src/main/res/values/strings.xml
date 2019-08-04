@@ -5,4 +5,5 @@
     <string name="deal_description">Deal description</string>
     <string name="menu_title_save">Save</string>
     <string name="saved_toast">Deal saved</string>
+    <string name="travel_deal_image">Travel deal image</string>
 </resources>
