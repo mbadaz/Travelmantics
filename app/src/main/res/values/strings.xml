@@ -9,4 +9,5 @@
     <string name="menu_add_new_deal">Add new deal</string>
     <string name="menu_deleteDeal">Delete Deal</string>
     <string name="menu_title_logout">Logout</string>
+    <string name="add_image_button">Add Image</string>
 </resources>

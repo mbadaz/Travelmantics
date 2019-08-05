@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +16,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -22,7 +24,6 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         implements ChildEventListener {
 
     private DatabaseReference mDatabaseReference;
-    private ChildEventListener mChildEventListener;
     private ArrayList<TravelDeal> deals;
 
     public DealAdapter(ListActivity activity) {
@@ -91,12 +92,14 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         private TextView tvTitle;
         private TextView tvDescription;
         private TextView tvPrice;
+        private ImageView imageView;
 
         public DealViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTItle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            imageView = itemView.findViewById(R.id.imageView);
             itemView.setOnClickListener(this);
         }
 
@@ -104,6 +107,17 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
             tvTitle.setText(deal.getTitle());
             tvDescription.setText(deal.getDescription());
             tvPrice.setText(deal.getPrice());
+            showImage(deal.getImageUrl());
+        }
+
+        private void showImage(String url) {
+            if (url != null && !url.isEmpty()) {
+                Picasso.get().
+                        load(url).
+                        resize(80, 80).
+                        centerInside().
+                        into(imageView);
+            }
         }
 
         @Override
