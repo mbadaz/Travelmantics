@@ -37,7 +37,7 @@ import static org.hamcrest.Matchers.not;
 public class InsertActivityTest {
 
     @Rule
-    public ActivityTestRule<InsertActivity> mActivityTestRule = new ActivityTestRule<>(InsertActivity.class);
+    public ActivityTestRule<DealActivity> mActivityTestRule = new ActivityTestRule<>(DealActivity.class);
 
     @Test
     public void saveDealUIFlowTest() {

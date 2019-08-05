@@ -5,5 +5,9 @@
     <item
         android:id="@+id/menuItemSave"
         android:title="@string/menu_title_save"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuDeleteDeal"
+        android:title="@string/menu_deleteDeal"
+        app:showAsAction="ifRoom" />
 </menu>
