@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
@@ -166,6 +167,7 @@ public class DealActivity extends AppCompatActivity {
 
     private void getBack() {
         Intent intent = new Intent(this, ListActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
@@ -185,14 +187,18 @@ public class DealActivity extends AppCompatActivity {
 
             final StorageReference ref = FirebaseUtil.mStorageReference.
                     child(imageUri.getLastPathSegment());
-            UploadTask uploadTask = ref.putFile(imageUri);
-            Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+
+            StorageMetadata metadata = new StorageMetadata.Builder().
+                    setCustomMetadata(Boolean.toString(FirebaseUtil.isAdmin), "").
+                    build();
+            UploadTask uploadTask = ref.putFile(imageUri, metadata);
+
+            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                 @Override
                 public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
                     if (!task.isSuccessful()) {
                         throw task.getException();
                     }
-
                     // Continue with the task to get the download URL
                     return ref.getDownloadUrl();
 

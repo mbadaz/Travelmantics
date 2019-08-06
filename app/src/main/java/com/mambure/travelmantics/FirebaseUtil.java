@@ -47,48 +47,53 @@ public class FirebaseUtil {
                     if (mFirebaseAuth.getCurrentUser() == null) {
                         FirebaseUtil.signIn();
                     } else {
-                        checkAdmin(mFirebaseAuth.getCurrentUser().getUid());
+                        checkAdmin();
                     }
-
                 }
             };
             connectStorage();
         }
+        checkAdmin();
         travelDeals = new ArrayList<>();
         mDatabaseReference = mFirebaseDatabase.getReference().child(ref);
     }
 
-    private static void checkAdmin(String uid) {
+    private static void checkAdmin() {
         FirebaseUtil.isAdmin = false;
-        mFirebaseDatabase.getReference().child("administrators").
-                child(uid).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                FirebaseUtil.isAdmin = true;
-                caller.showMenu();
-            }
+        if (mFirebaseAuth != null && mFirebaseAuth.getCurrentUser() != null) {
+            mFirebaseDatabase.getReference().child("administrators").
+                    child(mFirebaseAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    FirebaseUtil.isAdmin = true;
+                    caller.showMenu();
+                }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                FirebaseUtil.isAdmin = false;
-                caller.showMenu();
-            }
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                    FirebaseUtil.isAdmin = false;
+                    caller.showMenu();
+                }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+        }
+
+
     }
 
     static void attacheListener() {
