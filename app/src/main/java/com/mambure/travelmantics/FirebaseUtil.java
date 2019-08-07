@@ -58,7 +58,7 @@ public class FirebaseUtil {
         mDatabaseReference = mFirebaseDatabase.getReference().child(ref);
     }
 
-    private static void checkAdmin() {
+    static void checkAdmin() {
         FirebaseUtil.isAdmin = false;
         if (mFirebaseAuth != null && mFirebaseAuth.getCurrentUser() != null) {
             mFirebaseDatabase.getReference().child("administrators").

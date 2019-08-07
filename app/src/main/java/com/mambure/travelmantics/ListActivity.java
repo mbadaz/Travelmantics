@@ -33,8 +33,14 @@ public class ListActivity extends AppCompatActivity {
 
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.list_activity_menu, menu);
+        menu.findItem(R.id.menu_addNewDeal).setVisible(false);
         return  true;
     }
 
@@ -43,9 +49,8 @@ public class ListActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         if (FirebaseUtil.isAdmin) {
             menu.findItem(R.id.menu_addNewDeal).setVisible(true);
-        } else {
-            menu.findItem(R.id.menu_addNewDeal).setVisible(false);
         }
+
         showMenu();
         return true;
     }
@@ -71,6 +76,7 @@ public class ListActivity extends AppCompatActivity {
     }
 
     private void logout() {
+        showMenu();
         AuthUI.getInstance()
                 .signOut(this)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -95,6 +101,7 @@ public class ListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         FirebaseUtil.attacheListener();
+        FirebaseUtil.checkAdmin();
         mRecyclerView = findViewById(R.id.rvDeals);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
