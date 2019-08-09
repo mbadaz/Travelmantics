@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,7 +28,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 public class DealActivity extends AppCompatActivity {
 
@@ -103,10 +103,10 @@ public class DealActivity extends AppCompatActivity {
     void showImage(String url) {
         if (url != null && !url.isEmpty()) {
             int width = Resources.getSystem().getDisplayMetrics().widthPixels;
-            Picasso.get().
+            GlideApp.with(imageView).
                     load(url).
-                    resize(width, width * 2/3).
-                    centerCrop().
+                    diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
+                    override(width, width * 2 / 3).
                     into(imageView);
         }
     }

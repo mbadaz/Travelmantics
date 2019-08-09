@@ -12,11 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -31,6 +31,7 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         mDatabaseReference = FirebaseUtil.mDatabaseReference;
         mDatabaseReference.addChildEventListener(this);
         deals = FirebaseUtil.travelDeals;
+
 
     }
 
@@ -47,7 +48,6 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
     @Override
     public void onBindViewHolder(@NonNull DealViewHolder holder, int position) {
         holder.bind(deals.get(position));
-
     }
 
 
@@ -111,12 +111,14 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         }
 
         private void showImage(String url) {
+
             if (url != null && !url.isEmpty()) {
-                Picasso.get().
+                GlideApp.with(imageView).
                         load(url).
-                        resize(80, 80).
-                        centerInside().
+                        centerCrop().override(80, 80).
+                        diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
                         into(imageView);
+
             }
         }
 

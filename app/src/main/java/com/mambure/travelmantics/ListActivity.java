@@ -1,10 +1,14 @@
 package com.mambure.travelmantics;
 
+import android.annotation.TargetApi;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,12 +26,15 @@ public class ListActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private DealAdapter mDealAdapter;
+    private ProgressBar mProgressBar;
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         FirebaseUtil.openFbReference("travelDeals", this);
+        mProgressBar = findViewById(R.id.progressBar);
 
     }
 
@@ -107,6 +114,14 @@ public class ListActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mDealAdapter = new DealAdapter(this);
         mRecyclerView.setAdapter(mDealAdapter);
+        mDealAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                disableProgessSpinner();
+                mDealAdapter.unregisterAdapterDataObserver(this);
+            }
+        });
     }
 
     @Override
@@ -132,5 +147,9 @@ public class ListActivity extends AppCompatActivity {
 
     public void showMenu() {
         invalidateOptionsMenu();
+    }
+
+    public void disableProgessSpinner() {
+        mProgressBar.setVisibility(View.GONE);
     }
 }

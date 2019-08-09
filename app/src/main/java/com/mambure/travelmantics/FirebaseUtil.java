@@ -17,17 +17,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class FirebaseUtil {
-    public static int RC_SIGN_IN = 123;
-    static FirebaseDatabase mFirebaseDatabase;
+class FirebaseUtil {
+    static int RC_SIGN_IN = 123;
+    private static FirebaseDatabase mFirebaseDatabase;
     static DatabaseReference mDatabaseReference;
-    static FirebaseUtil mFirebaseUtil;
-    static FirebaseAuth mFirebaseAuth;
-    static FirebaseAuth.AuthStateListener mAuthStateListener;
+    private static FirebaseUtil mFirebaseUtil;
+    private static FirebaseAuth mFirebaseAuth;
+    private static FirebaseAuth.AuthStateListener mAuthStateListener;
     static FirebaseStorage mFirebaseStorage;
     static StorageReference mStorageReference;
     static ArrayList<TravelDeal> travelDeals;
-    static ListActivity caller;
+    private static ListActivity caller;
     static boolean isAdmin;
 
 
@@ -56,6 +56,7 @@ public class FirebaseUtil {
         checkAdmin();
         travelDeals = new ArrayList<>();
         mDatabaseReference = mFirebaseDatabase.getReference().child(ref);
+
     }
 
     static void checkAdmin() {
