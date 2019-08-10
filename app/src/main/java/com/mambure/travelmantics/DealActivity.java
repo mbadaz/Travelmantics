@@ -156,22 +156,24 @@ public class DealActivity extends AppCompatActivity {
     }
 
     private void deleteDeal() {
-        if (mDeal == null) {
+        if (mDeal == null || mDeal.getId() == null ) {
             Toast.makeText(this, "Create and save deal first!", Toast.LENGTH_SHORT).show();
         } else {
             mDatabaseReference.child(mDeal.getId()).removeValue();
-            StorageReference ref = FirebaseUtil.mFirebaseStorage.getReference().child(mDeal.getImageName());
-            ref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Log.d("Delete image", "Successful");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("Delete image", "Failed: " + e.getMessage());
-                }
-            });
+            if (mDeal.getImageUrl() != null) {
+                StorageReference ref = FirebaseUtil.mFirebaseStorage.getReference().child(mDeal.getImageName());
+                ref.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("Delete image", "Successful");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Delete image", "Failed: " + e.getMessage());
+                    }
+                });
+            }
 
             Toast.makeText(this, "Deal deleted!", Toast.LENGTH_SHORT).show();
             getBack();
