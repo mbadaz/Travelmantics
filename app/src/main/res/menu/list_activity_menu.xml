@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_addNewDeal"
         android:title="@string/menu_add_new_deal"
-        app:showAsAction="collapseActionView" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_logout"
         android:title="@string/menu_title_logout"

@@ -31,6 +31,7 @@ import com.google.firebase.storage.UploadTask;
 
 public class DealActivity extends AppCompatActivity {
 
+    public static final String TAG = DealActivity.class.getSimpleName();
     public static final int REQUEST_CODE = 125;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
@@ -77,6 +78,9 @@ public class DealActivity extends AppCompatActivity {
             }
         });
 
+        IdlingResourceUtil.get().decrement();
+        Log.d("IdlingResource:", "onCreate decrement");
+
     }
 
     @Override
@@ -92,6 +96,11 @@ public class DealActivity extends AppCompatActivity {
             enableEditTexts(false);
         }
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     private void enableEditTexts(boolean isEnabled) {
@@ -116,11 +125,13 @@ public class DealActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menuItemSave:
+                Log.d(TAG, "save menu item clicked");
                 saveDeal();
                 Toast.makeText(this, R.string.saved_toast, Toast.LENGTH_SHORT).show();
                 getBack();
                 break;
             case R.id.menuDeleteDeal:
+                Log.d(TAG, "delete menu item clicked");
                 deleteDeal();
                 break;
         }
@@ -128,6 +139,8 @@ public class DealActivity extends AppCompatActivity {
     }
 
     private void saveDeal() {
+//        IdlingResourceUtil.get().increment();
+//        Log.d("IdlingResource:", "save deal increment");
         String title = titleEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
         String price = priceEditText.getText().toString();

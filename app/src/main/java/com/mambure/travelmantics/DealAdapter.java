@@ -16,23 +16,19 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder>
-        implements ChildEventListener {
+        implements ChildEventListener, ValueEventListener {
 
-    private DatabaseReference mDatabaseReference;
-    private ArrayList<TravelDeal> deals;
+
+    private ArrayList<TravelDeal> deals = new ArrayList<>() ;
 
     public DealAdapter(ListActivity activity) {
         FirebaseUtil.openFbReference("travelDeals", activity);
-        mDatabaseReference = FirebaseUtil.mDatabaseReference;
-        mDatabaseReference.addChildEventListener(this);
-        deals = FirebaseUtil.travelDeals;
-
-
+        FirebaseUtil.mDatabaseReference.addChildEventListener(this);
     }
 
     @NonNull
@@ -58,7 +54,6 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
 
     @Override
     public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
         TravelDeal deal = dataSnapshot.getValue(TravelDeal.class);
         deal.setId(dataSnapshot.getKey());
         deals.add(deal);
@@ -80,6 +75,17 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
     @Override
     public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+            TravelDeal deal = snapshot.getValue(TravelDeal.class);
+            deals.add(deal);
+        }
+
+        notifyDataSetChanged();
+        //FirebaseUtil.mDatabaseReference.addChildEventListener(this);
     }
 
     @Override

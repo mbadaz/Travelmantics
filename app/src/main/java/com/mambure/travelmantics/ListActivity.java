@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,14 +35,11 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         FirebaseUtil.openFbReference("travelDeals", this);
+        FirebaseUtil.checkAdmin();
+        IdlingResourceUtil.get().increment();
+        Log.d("IdlingResource:", "onCreate increment");
         mProgressBar = findViewById(R.id.progressBar);
 
-    }
-
-
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
     }
 
     @Override
@@ -54,6 +52,7 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+
         if (FirebaseUtil.isAdmin) {
             menu.findItem(R.id.menu_addNewDeal).setVisible(true);
         }
@@ -76,7 +75,6 @@ public class ListActivity extends AppCompatActivity {
             default:
                 super.onOptionsItemSelected(item);
                 break;
-
         }
 
         return true;
@@ -101,14 +99,16 @@ public class ListActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         FirebaseUtil.removeListener();
+        IdlingResourceUtil.get().increment();
+        Log.d("IdlingResource:", "onPause increment");
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
+
         FirebaseUtil.attacheListener();
-        FirebaseUtil.checkAdmin();
         mRecyclerView = findViewById(R.id.rvDeals);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
@@ -119,6 +119,8 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 disableProgessSpinner();
+                IdlingResourceUtil.get().decrement();
+                Log.d("IdlingResource:", "Adapter decrement");
                 mDealAdapter.unregisterAdapterDataObserver(this);
             }
         });
@@ -143,6 +145,7 @@ public class ListActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public void showMenu() {
@@ -152,4 +155,10 @@ public class ListActivity extends AppCompatActivity {
     public void disableProgessSpinner() {
         mProgressBar.setVisibility(View.GONE);
     }
+
+    @VisibleForTesting
+    public DealAdapter getDealAdapter() {
+        return mDealAdapter;
+    }
+
 }
