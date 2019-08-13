@@ -77,10 +77,6 @@ public class DealActivity extends AppCompatActivity {
                 startActivityForResult(intent.createChooser(intent, "Select an image"), REQUEST_CODE);
             }
         });
-
-        IdlingResourceUtil.get().decrement();
-        Log.d("IdlingResource:", "onCreate decrement");
-
     }
 
     @Override
@@ -96,11 +92,6 @@ public class DealActivity extends AppCompatActivity {
             enableEditTexts(false);
         }
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
     }
 
     private void enableEditTexts(boolean isEnabled) {
@@ -139,8 +130,6 @@ public class DealActivity extends AppCompatActivity {
     }
 
     private void saveDeal() {
-//        IdlingResourceUtil.get().increment();
-//        Log.d("IdlingResource:", "save deal increment");
         String title = titleEditText.getText().toString();
         String description = descriptionEditText.getText().toString();
         String price = priceEditText.getText().toString();
@@ -181,9 +170,7 @@ public class DealActivity extends AppCompatActivity {
     }
 
     private void getBack() {
-        Intent intent = new Intent(this, ListActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+        finish();
     }
 
     private void clean() {

@@ -36,9 +36,13 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         FirebaseUtil.openFbReference("travelDeals", this);
         FirebaseUtil.checkAdmin();
-        IdlingResourceUtil.get().increment();
-        Log.d("IdlingResource:", "onCreate increment");
         mProgressBar = findViewById(R.id.progressBar);
+        FirebaseUtil.attacheListener();
+        mRecyclerView = findViewById(R.id.rvDeals);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setHasFixedSize(true);
+        mDealAdapter = new DealAdapter(this);
+        mRecyclerView.setAdapter(mDealAdapter);
 
     }
 
@@ -99,28 +103,16 @@ public class ListActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         FirebaseUtil.removeListener();
-        IdlingResourceUtil.get().increment();
-        Log.d("IdlingResource:", "onPause increment");
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        FirebaseUtil.attacheListener();
-        mRecyclerView = findViewById(R.id.rvDeals);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setHasFixedSize(true);
-        mDealAdapter = new DealAdapter(this);
-        mRecyclerView.setAdapter(mDealAdapter);
         mDealAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-
             @Override
             public void onItemRangeInserted(int positionStart, int itemCount) {
                 disableProgessSpinner();
-                IdlingResourceUtil.get().decrement();
-                Log.d("IdlingResource:", "Adapter decrement");
                 mDealAdapter.unregisterAdapterDataObserver(this);
             }
         });

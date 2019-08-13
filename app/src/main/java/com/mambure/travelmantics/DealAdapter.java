@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder>
-        implements ChildEventListener, ValueEventListener {
+        implements ChildEventListener{
 
 
     private ArrayList<TravelDeal> deals = new ArrayList<>() ;
@@ -39,7 +39,6 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
 
         return new DealViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(@NonNull DealViewHolder holder, int position) {
@@ -69,23 +68,16 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
 
     @Override
     public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+        TravelDeal deal = dataSnapshot.getValue(TravelDeal.class);
+        deal.setId(dataSnapshot.getKey());
+        int position = deals.indexOf(deal);
+        deals.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
     public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-    }
-
-    @Override
-    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-            TravelDeal deal = snapshot.getValue(TravelDeal.class);
-            deals.add(deal);
-        }
-
-        notifyDataSetChanged();
-        //FirebaseUtil.mDatabaseReference.addChildEventListener(this);
     }
 
     @Override

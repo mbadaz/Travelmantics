@@ -1,5 +1,7 @@
 package com.mambure.travelmantics;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
 
 public class TravelDeal implements Serializable {
@@ -71,5 +73,11 @@ public class TravelDeal implements Serializable {
 
     public void setImageName(String imageName) {
         this.imageName = imageName;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        TravelDeal deal = (TravelDeal) obj;
+        return deal != null && deal.id.equals(id);
     }
 }
