@@ -10,4 +10,11 @@
     <string name="menu_deleteDeal">Delete Deal</string>
     <string name="menu_title_logout">Logout</string>
     <string name="add_image_button">Add Image</string>
+    <string name="loginPageHeader">Sign in</string>
+    <string name="field_emai">Email/username</string>
+    <string name="tvEmail">EMAIL</string>
+    <string name="tv_password">PASSWORD</string>
+    <string name="tv_sign_in_with">or sign in with:</string>
+    <string name="tv_signInHeading">SIGN IN</string>
+
 </resources>

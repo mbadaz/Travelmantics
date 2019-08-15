@@ -3,6 +3,7 @@ package com.mambure.travelmantics;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -129,10 +130,14 @@ class FirebaseUtil {
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
 
+        AuthMethodPickerLayout pickerLayoutLayout = new AuthMethodPickerLayout.Builder(R.layout.activity_login_1).
+                setGoogleButtonId(R.id.btn_google).
+                setEmailButtonId(R.id.btn_signIn).build();
         caller.startActivityForResult(
                 AuthUI.getInstance().
                         createSignInIntentBuilder().
                         setAvailableProviders(providers).
+                        setAuthMethodPickerLayout(pickerLayoutLayout).
                         build(), RC_SIGN_IN
         );
     }
