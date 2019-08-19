@@ -30,6 +30,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/article_image_height"
                     android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"
                     tools:srcCompat="@tools:sample/backgrounds/scenic[1]" />
 
                 <View
@@ -46,13 +47,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintEnd_toEndOf="@+id/frameLayout"
                 app:layout_constraintStart_toStartOf="@+id/frameLayout"
-                app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+                tools:text="@tools:sample/lorem/random" />
 
             <TextView
                 android:id="@+id/tv_detail_price"

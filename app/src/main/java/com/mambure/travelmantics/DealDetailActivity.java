@@ -41,7 +41,7 @@ public class DealDetailActivity extends AppCompatActivity {
             GlideApp.with(image).
                     load(imageUrl).
                     diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).
-                    centerInside().
+                    centerCrop().
                     into(image);
         }
     }

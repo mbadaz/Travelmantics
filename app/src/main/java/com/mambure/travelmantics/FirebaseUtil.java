@@ -138,6 +138,7 @@ class FirebaseUtil {
                         createSignInIntentBuilder().
                         setAvailableProviders(providers).
                         setAuthMethodPickerLayout(pickerLayoutLayout).
+                        setTheme(R.style.Theme_AppCompat_NoActionBar).
                         build(), RC_SIGN_IN
         );
     }
