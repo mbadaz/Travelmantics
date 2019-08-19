@@ -16,5 +16,8 @@
     <string name="tv_password">PASSWORD</string>
     <string name="tv_sign_in_with">or sign in with:</string>
     <string name="tv_signInHeading">SIGN IN</string>
+    <string name="sign_in_button_label_google">Sign in with Google</string>
+    <string name="sign_in_button_email">Sign in with email</string>
+    <string name="sign_in_button_facebook">Sign in with Facebook</string>
 
 </resources>

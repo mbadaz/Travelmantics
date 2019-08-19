@@ -16,7 +16,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -97,7 +96,7 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
             tvTitle = itemView.findViewById(R.id.tvTItle);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            imageView = itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.image_deal);
             itemView.setOnClickListener(this);
         }
 
@@ -124,7 +123,13 @@ public class DealAdapter extends RecyclerView.Adapter<DealAdapter.DealViewHolder
         public void onClick(View v) {
             int position = getAdapterPosition();
             Log.d("Click: ", String.valueOf(position));
-            Intent intent = new Intent(v.getContext(), DealActivity.class);
+            Intent intent;
+            if (FirebaseUtil.isAdmin) {
+                intent = new Intent(v.getContext(), DealActivity.class);
+            }else {
+                intent = new Intent(v.getContext(), DealDetailActivity.class);
+            }
+
             intent.putExtra("travelDeal", deals.get(position));
             v.getContext().startActivity(intent);
         }

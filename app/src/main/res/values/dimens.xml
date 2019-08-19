@@ -7,4 +7,8 @@
     <dimen name="margin_small">12dp</dimen>
     <dimen name="field_height">64dp</dimen>
     <dimen name="dimen_logo_small">48dp</dimen>
+    <dimen name="button_drawable_padding">8dp</dimen>
+    <dimen name="button_padding">12dp</dimen>
+    <dimen name="sign_in_button_width">228dp</dimen>
+    <dimen name="article_image_height">240dp</dimen>
 </resources>

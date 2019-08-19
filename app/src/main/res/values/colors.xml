@@ -2,8 +2,10 @@
 <resources>
     <color name="colorPrimary">#8F23AC</color>
     <color name="colorPrimaryDark">#5E35B1</color>
-    <color name="colorAccent">#BF82D1</color>
+    <color name="colorAccent">#F8E2FF</color>
     <color name="background_light">#F5ECF7</color>
     <color name="colorListItemPressed">#FCE58A</color>
     <color name="colorListItemBackground">#FDD835</color>
+    <color name="sign_button_text_color">#3E394D</color>
+    <color name="overlay_gradient_start">#80000000</color>
 </resources>

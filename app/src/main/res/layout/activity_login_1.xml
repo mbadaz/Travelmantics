@@ -8,7 +8,9 @@
     android:background="@drawable/login_dashboard_rectangle"
     android:gravity="center_vertical"
     android:orientation="vertical"
-    android:showDividers="middle">
+    android:showDividers="middle"
+    tools:context=".DealDetailActivity"
+    android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
     <TextView
         android:id="@+id/tvSignInHeading"
@@ -28,129 +30,75 @@
         android:id="@+id/cardView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:fadingEdgeLength="8dp"
+        android:fadingEdge="vertical"
+        android:fadingEdgeLength="4dp"
         app:cardBackgroundColor="@color/background_light"
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp"
         app:cardMaxElevation="4dp"
-        app:contentPadding="@dimen/margin_small"
-        tools:layout_conversion_absoluteHeight="174dp"
-        tools:layout_conversion_absoluteWidth="379dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:cardUseCompatPadding="true"
+        app:contentPaddingBottom="32dp"
+        app:contentPaddingTop="32dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_conversion_absoluteHeight="149dp"
-            tools:layout_conversion_absoluteWidth="355dp"
-            tools:layout_editor_absoluteX="12dp"
-            tools:layout_editor_absoluteY="12dp">
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/tvEmail"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/editText"
-                android:layout_width="339dp"
-                android:layout_height="45dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:inputType="textEmailAddress"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
-
-            <TextView
-                android:id="@+id/tvPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:text="@string/tv_password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
-
-            <EditText
-                android:id="@+id/txtPassword"
-                android:layout_width="339dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:autofillHints=""
-                android:ems="10"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvPassword" />
 
             <Button
-                android:id="@+id/btn_signIn"
-                android:layout_width="0dp"
+                android:id="@+id/btn_email_sign_in"
+                android:layout_width="@dimen/sign_in_button_width"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:background="@drawable/sign_in_button"
-                android:text="@string/tv_signInHeading"
-                android:textColor="@color/background_light"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
+                android:drawableStart="@drawable/fui_ic_mail_white_24dp"
+                android:drawableLeft="@drawable/fui_ic_mail_white_24dp"
+                android:drawablePadding="@dimen/button_drawable_padding"
+                android:fadingEdge="vertical"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/button_padding"
+                android:text="@string/sign_in_button_email"
+                android:textAllCaps="false"
+                android:textColor="@color/background_light" />
 
-            <TextView
-                android:id="@+id/tv_signInWith"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btn_google_sign_in"
+                android:layout_width="@dimen/sign_in_button_width"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/tv_sign_in_with"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_signIn" />
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@drawable/sign_in_button_background"
+                android:drawableStart="@drawable/googe_logo"
+                android:drawableLeft="@drawable/googe_logo"
+                android:drawablePadding="@dimen/button_drawable_padding"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/button_padding"
+                android:text="@string/sign_in_button_label_google"
+                android:textAllCaps="false"
+                android:textColor="@color/sign_button_text_color" />
 
             <Button
-                android:id="@+id/btn_google"
-                android:layout_width="@dimen/dimen_logo_small"
-                android:layout_height="@dimen/dimen_logo_small"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/google_sign_in_button"
-                android:padding="4dp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_signInWith"
-                tools:layout_editor_absoluteX="8dp" />
+                android:id="@+id/btn_facebook_sign_in"
+                android:layout_width="@dimen/sign_in_button_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@drawable/sign_in_button_background"
+                android:drawableStart="@drawable/fui_ic_facebook_white_22dp"
+                android:drawableLeft="@drawable/fui_ic_facebook_white_22dp"
+                android:drawablePadding="@dimen/button_drawable_padding"
+                android:fadingEdge="vertical"
+                android:gravity="start|center_vertical"
+                android:padding="@dimen/button_padding"
+                android:requiresFadingEdge="vertical"
+                android:text="@string/sign_in_button_facebook"
+                android:textAllCaps="false"
+                android:textColor="@color/sign_button_text_color" />
 
-            <Button
-                android:id="@+id/btn_facebook"
-                android:layout_width="@dimen/dimen_logo_small"
-                android:layout_height="@dimen/dimen_logo_small"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/facebook_sign_in_button"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_google"
-                app:layout_constraintTop_toBottomOf="@+id/tv_signInWith" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

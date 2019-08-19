@@ -131,8 +131,8 @@ class FirebaseUtil {
         );
 
         AuthMethodPickerLayout pickerLayoutLayout = new AuthMethodPickerLayout.Builder(R.layout.activity_login_1).
-                setGoogleButtonId(R.id.btn_google).
-                setEmailButtonId(R.id.btn_signIn).build();
+                setGoogleButtonId(R.id.btn_google_sign_in).
+                setEmailButtonId(R.id.btn_email_sign_in).build();
         caller.startActivityForResult(
                 AuthUI.getInstance().
                         createSignInIntentBuilder().
